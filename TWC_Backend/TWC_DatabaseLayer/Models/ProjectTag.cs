@@ -12,8 +12,8 @@ namespace TWC_DatabaseLayer.Models
         [Key]
         public int Id { get; set; }
         public int TagId { get; set; }
-        public Tag Tag { get; set; }
         public int ProjectId { get; set; }
+        public Tag Tag { get; set; }
         public Project Project { get; set; }
     }
 }
