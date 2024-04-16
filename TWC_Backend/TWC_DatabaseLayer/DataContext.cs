@@ -20,5 +20,7 @@ namespace TWC_DatabaseLayer
         public virtual DbSet<ProjectTag> ProjectTags { get; set; }
         public virtual DbSet<UserTag> UserTags { get; set; }
         public virtual DbSet<ProjectMember> ProjectMembers { get; set; }
+        public virtual DbSet<Chat> Chats { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
     }
 }
