@@ -424,5 +424,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
-/TWC_Backend/TWC_Backend/appsettings.json
