@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TWC_DatabaseLayer;
+using TWC_Services.DBService;
+using TWC_Services.HashService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("TWC_DB_Connection")));
 
+builder.Services.AddScoped<IDBService, DBService>();
+builder.Services.AddScoped<IHashService, HashService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
