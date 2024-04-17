@@ -8,23 +8,21 @@ using TWC_DatabaseLayer.Models;
 
 namespace TWC_DatabaseLayer.Mapper
 {
-    public class UserRegistrationMapper : IMapper<User, UserRegistrationDTO>
+    public class UserAuthenticationMapper : IMapper<User, UserAuthenticationDTO>
     {
-        public UserRegistrationDTO Map(User data)
+        public UserAuthenticationDTO Map(User data)
         {
-            return new UserRegistrationDTO
+            return new UserAuthenticationDTO
             {
-                Username = data.Username,
                 Email = data.Email,
                 Password = data.Password.ToString(),
             };
         }
 
-        public User Unmap(UserRegistrationDTO data)
+        public User Unmap(UserAuthenticationDTO data)
         {
             return new User
             {
-                Username = data.Username,
                 Email = data.Email,
                 Password = data.Password, //perhaps a hash function should be called here
             };

@@ -47,6 +47,29 @@ namespace TWC_Backend.Controllers
         }
 
         [HttpPost]
+        [Route("/User/Authentication")]
+        public async Task<ActionResult<User>> AuthenticationUser(UserAuthenticationDTO userAuthenticationDTO)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    throw new Exception("Invalid data. Please check the data. Email must be in the correct format and password must be longer than 8 characters!");
+
+                var user = await _dBService.GetUserByEmail(userAuthenticationDTO.Email);
+
+                if (user == null)
+                    throw new Exception("User with this email does not exist!");
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("/User/Registration")]
         public async Task<ActionResult<User>> RegistrationUser(UserRegistrationDTO userRegistrationDTO)
         {
             try
