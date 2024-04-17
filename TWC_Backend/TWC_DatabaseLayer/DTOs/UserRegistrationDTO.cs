@@ -10,7 +10,7 @@ namespace TWC_DatabaseLayer.DTOs
     public class UserRegistrationDTO
     {
         [Required]
-        [MaxLength(3)]
+        [MinLength(3)]
         public string Username { get; set; }
         [Required]
         [EmailAddress]

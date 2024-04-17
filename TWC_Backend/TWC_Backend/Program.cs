@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using TWC_DatabaseLayer;
+using TWC_DatabaseLayer.DTOs;
+using TWC_DatabaseLayer.Mapper;
+using TWC_DatabaseLayer.Models;
 using TWC_Services.DBService;
 using TWC_Services.HashService;
 
@@ -13,6 +16,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
 
 builder.Services.AddScoped<IDBService, DBService>();
 builder.Services.AddScoped<IHashService, HashService>();
+builder.Services.AddScoped<IMapper<User, UserRegistrationDTO>, UserRegistrationMapper>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

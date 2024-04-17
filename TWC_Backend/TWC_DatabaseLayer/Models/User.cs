@@ -19,7 +19,7 @@ namespace TWC_DatabaseLayer.Models
         [Required]
         public string Email { get; set; }
         [Required]
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
         public DateOnly? DateOfBirth { get; set; }
         public int? Sex { get; set; }
         public string PhoneNumber { get; set; } = "";
