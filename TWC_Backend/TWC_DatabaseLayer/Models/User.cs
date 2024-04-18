@@ -25,5 +25,6 @@ namespace TWC_DatabaseLayer.Models
         public string PhoneNumber { get; set; } = "";
         public List<ProjectMember>? JoinedProjects { get; set; }
         public List<UserTag>? Tags { get; set; }
+        public PasswordSalt PasswordSalt { get; set; }
     }
 }

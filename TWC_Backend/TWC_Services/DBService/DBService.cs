@@ -84,5 +84,85 @@ namespace TWC_Services.DBService
                 throw new Exception($"cant delete {typeof(User).Name}. Messege error: " + ex.Message);
             }
         }
+
+        public async Task<PasswordSalt> AddSalt(PasswordSalt salt)
+        {
+            try
+            {
+                if ((await GetSaltByUserId(salt.UserId)) != null)
+                {
+                    throw new Exception($"salt for this userId = {salt.UserId} exist");
+                }
+                await _context.PasswordSalts.AddAsync(salt);
+                await _context.SaveChangesAsync();
+                return salt;
+            }
+            
+            catch (Exception ex)
+            {
+                throw new Exception($"cant add {typeof(PasswordSalt).Name}. Messege error: " + ex.Message);
+            }
+        }
+        public async Task<PasswordSalt> GetSaltByUserId(int userId)
+        {
+            try
+            {
+                return await _context.PasswordSalts.SingleOrDefaultAsync(s => s.UserId == userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"cant found {typeof(PasswordSalt).Name} by userId = {userId}. Messege error: " + ex.Message);
+            }
+        }
+
+        public async Task<PasswordSalt> GetSaltById(int id)
+        {
+            try
+            {
+                return await _context.PasswordSalts.SingleOrDefaultAsync(s => s.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"cant found {typeof(PasswordSalt).Name} by Id = {id}. Messege error: " + ex.Message);
+            }
+        }
+
+        public async Task<PasswordSalt> EditSalt(PasswordSalt salt)
+        {
+            try
+            {
+                var oldSalt = await GetSaltById(salt.Id);
+                if (oldSalt == null) 
+                { 
+                    throw new Exception($"there is no salt with this id = {salt.Id}"); 
+                }
+                oldSalt.Salt = salt.Salt;
+                oldSalt.UserId = salt.UserId;
+
+                await _context.SaveChangesAsync();
+                return oldSalt;
+            }
+            catch(Exception ex) 
+            {
+                throw new Exception($"cant edit {typeof(PasswordSalt).Name}. Messege error: " + ex.Message);
+            }
+        }
+
+        public async Task DeleteSaltById(int id)
+        {
+            try
+            {
+                var salt = await GetSaltById(id);
+                if (salt == null)
+                    throw new Exception($"salt with id = {salt.Id} not exist");
+
+                _context.PasswordSalts.Remove(salt);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"cant delete {typeof(PasswordSalt).Name}. Messege error: " + ex.Message);
+            }
+        }
     }
 }

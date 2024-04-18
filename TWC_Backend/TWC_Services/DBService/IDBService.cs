@@ -14,5 +14,11 @@ namespace TWC_Services.DBService
         public Task<User> GetUserByEmail(string email);
         public Task<User> AddUser(User user);
         public Task DeleteUser(int id);
+        public Task<PasswordSalt> AddSalt(PasswordSalt salt);
+        public Task<PasswordSalt> GetSaltByUserId(int userId);
+        public Task<PasswordSalt> GetSaltById(int id);
+        public Task<PasswordSalt> EditSalt(PasswordSalt salt);
+        public Task DeleteSaltById(int id);
+
     }
 }

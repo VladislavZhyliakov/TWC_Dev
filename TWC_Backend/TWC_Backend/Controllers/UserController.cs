@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TWC_DatabaseLayer.DTOs;
-using TWC_DatabaseLayer.Mapper;
+using TWC_Services.Mapper;
 using TWC_DatabaseLayer.Models;
 using TWC_Services.DBService;
+using TWC_Services.HashService;
 
 namespace TWC_Backend.Controllers
 {
@@ -12,11 +13,13 @@ namespace TWC_Backend.Controllers
     {
         private IDBService _dBService;
         private IMapper<User, UserRegistrationDTO> _registrationMapper;
+        private IHashService _hashService;
 
-        public UserController(IDBService dBService, IMapper<User, UserRegistrationDTO> mapper) 
+        public UserController(IDBService dBService, IMapper<User, UserRegistrationDTO> mapper, IHashService hashService) 
         {
             _dBService = dBService;
             _registrationMapper = mapper;
+            _hashService = hashService;
         }
 
         [HttpGet]
@@ -60,6 +63,13 @@ namespace TWC_Backend.Controllers
                 if (user == null)
                     throw new Exception("User with this email does not exist!");
 
+                var salt = await _dBService.GetSaltByUserId(user.Id);
+                //bool isPasswordCorect = 
+                if (!_hashService.PasswordVerification(userAuthenticationDTO.Password, user.Password, salt.Salt))
+                {
+                    throw new Exception("Password is wrong!");
+                }
+
                 return Ok(user);
             }
             catch (Exception ex)
@@ -80,7 +90,17 @@ namespace TWC_Backend.Controllers
                 if (await _dBService.GetUserByEmail(userRegistrationDTO.Email) != null)
                     throw new Exception("User with this email already exists!");
 
+                byte[] salt;
+                userRegistrationDTO.Password = _hashService.HashPassword(userRegistrationDTO.Password, out salt);
+
                 User user = await _dBService.AddUser(_registrationMapper.Unmap(userRegistrationDTO));
+
+                PasswordSalt passwordSalt = new PasswordSalt {
+                    Salt = salt,
+                    UserId = user.Id
+                };
+
+                await _dBService.AddSalt(passwordSalt);
 
                 return Ok(user);
             }

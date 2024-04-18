@@ -22,5 +22,6 @@ namespace TWC_DatabaseLayer
         public virtual DbSet<ProjectMember> ProjectMembers { get; set; }
         public virtual DbSet<Chat> Chats { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<PasswordSalt> PasswordSalts { get; set; }
     }
 }

@@ -6,23 +6,26 @@ using System.Threading.Tasks;
 using TWC_DatabaseLayer.DTOs;
 using TWC_DatabaseLayer.Models;
 
-namespace TWC_DatabaseLayer.Mapper
+
+namespace TWC_Services.Mapper
 {
-    public class UserAuthenticationMapper : IMapper<User, UserAuthenticationDTO>
+    public class UserRegistrationMapper : IMapper<User, UserRegistrationDTO>
     {
-        public UserAuthenticationDTO Map(User data)
+        public UserRegistrationDTO Map(User data)
         {
-            return new UserAuthenticationDTO
+            return new UserRegistrationDTO
             {
+                Username = data.Username,
                 Email = data.Email,
                 Password = data.Password.ToString(),
             };
         }
 
-        public User Unmap(UserAuthenticationDTO data)
+        public User Unmap(UserRegistrationDTO data)
         {
             return new User
             {
+                Username = data.Username,
                 Email = data.Email,
                 Password = data.Password, //perhaps a hash function should be called here
             };

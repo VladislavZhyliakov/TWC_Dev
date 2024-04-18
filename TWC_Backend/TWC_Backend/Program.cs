@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using TWC_DatabaseLayer;
 using TWC_DatabaseLayer.DTOs;
-using TWC_DatabaseLayer.Mapper;
+using TWC_Services.Mapper;
+using TWC_Services.Mapper;
 using TWC_DatabaseLayer.Models;
 using TWC_Services.DBService;
 using TWC_Services.HashService;
