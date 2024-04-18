@@ -64,11 +64,11 @@ namespace TWC_Backend.Controllers
                     throw new Exception("User with this email does not exist!");
 
                 var salt = await _dBService.GetSaltByUserId(user.Id);
-                //bool isPasswordCorect = 
                 if (!_hashService.PasswordVerification(userAuthenticationDTO.Password, user.Password, salt.Salt))
                 {
                     throw new Exception("Password is wrong!");
                 }
+
 
                 return Ok(user);
             }

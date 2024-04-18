@@ -27,7 +27,7 @@ namespace TWC_Services.Mapper
             {
                 Username = data.Username,
                 Email = data.Email,
-                Password = data.Password, //perhaps a hash function should be called here
+                Password = data.Password,
             };
         }
     }
