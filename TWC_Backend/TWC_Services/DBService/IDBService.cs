@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TWC_DatabaseLayer.Models;
+﻿using TWC_DatabaseLayer.Models;
 
 namespace TWC_Services.DBService
 {
     public interface IDBService
     {
-        public Task<List<User>> GetAllUsers();
-        public Task<User> GetUserById(int id);
-        public Task<User> GetUserByEmail(string email);
-        public Task<User> AddUser(User user);
-        public Task DeleteUser(int id);
-        public Task<PasswordSalt> AddSalt(PasswordSalt salt);
-        public Task<PasswordSalt> GetSaltByUserId(int userId);
-        public Task<PasswordSalt> GetSaltById(int id);
-        public Task<PasswordSalt> EditSalt(PasswordSalt salt);
-        public Task DeleteSaltById(int id);
+        public Task<List<User>> GetAllUsersAsync();
+        public Task<User> GetUserByIdAsync(int id);
+        public Task<User> GetUserByEmailAsync(string email);
+        public Task<User> AddUserAsync(User user);
+        public Task DeleteUserAsync(int id);
+        public Task<PasswordSalt> AddSaltAsync(PasswordSalt salt);
+        public Task<PasswordSalt> GetSaltByUserIdAsync(int userId);
+        public Task<PasswordSalt> GetSaltByIdAsync(int id);
+        public Task<PasswordSalt> EditSaltAsync(PasswordSalt salt);
+        public Task DeleteSaltByIdAsync(int id);
 
     }
 }

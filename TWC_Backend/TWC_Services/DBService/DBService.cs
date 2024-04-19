@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TWC_DatabaseLayer;
 using TWC_DatabaseLayer.Models;
 
@@ -15,12 +10,12 @@ namespace TWC_Services.DBService
 
         public DBService(DataContext context) {  _context = context; }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            return (await _context.Users.ToListAsync());
+            return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
             try
             {
@@ -33,7 +28,7 @@ namespace TWC_Services.DBService
                 throw new Exception($"cant found {typeof(User).Name} by id. Messege error: " + ex.Message);
             }
         }
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
             try
             {
@@ -47,12 +42,11 @@ namespace TWC_Services.DBService
             }
         }
 
-        public async Task<User> AddUser(User user)
+        public async Task<User> AddUserAsync(User user)
         {
             try
             {
-                //var checkUser = await GetUserByEmail(user.Email);
-                if ((await GetUserByEmail(user.Email)) != null)
+                if ((await GetUserByEmailAsync(user.Email)) != null)
                 {
                     throw new Exception($"user with email = {user.Email} exist");
                 }
@@ -68,11 +62,11 @@ namespace TWC_Services.DBService
             }
         }
 
-        public async Task DeleteUser(int id)
+        public async Task DeleteUserAsync(int id)
         {
             try
             {
-                var user = await GetUserById(id);
+                var user = await GetUserByIdAsync(id);
                 if (user == null)
                     throw new Exception($"user with id = {user.Id} not exist");
 
@@ -85,11 +79,11 @@ namespace TWC_Services.DBService
             }
         }
 
-        public async Task<PasswordSalt> AddSalt(PasswordSalt salt)
+        public async Task<PasswordSalt> AddSaltAsync(PasswordSalt salt)
         {
             try
             {
-                if ((await GetSaltByUserId(salt.UserId)) != null)
+                if ((await GetSaltByUserIdAsync(salt.UserId)) != null)
                 {
                     throw new Exception($"salt for this userId = {salt.UserId} exist");
                 }
@@ -103,7 +97,7 @@ namespace TWC_Services.DBService
                 throw new Exception($"cant add {typeof(PasswordSalt).Name}. Messege error: " + ex.Message);
             }
         }
-        public async Task<PasswordSalt> GetSaltByUserId(int userId)
+        public async Task<PasswordSalt> GetSaltByUserIdAsync(int userId)
         {
             try
             {
@@ -115,7 +109,7 @@ namespace TWC_Services.DBService
             }
         }
 
-        public async Task<PasswordSalt> GetSaltById(int id)
+        public async Task<PasswordSalt> GetSaltByIdAsync(int id)
         {
             try
             {
@@ -127,11 +121,11 @@ namespace TWC_Services.DBService
             }
         }
 
-        public async Task<PasswordSalt> EditSalt(PasswordSalt salt)
+        public async Task<PasswordSalt> EditSaltAsync(PasswordSalt salt)
         {
             try
             {
-                var oldSalt = await GetSaltById(salt.Id);
+                var oldSalt = await GetSaltByIdAsync(salt.Id);
                 if (oldSalt == null) 
                 { 
                     throw new Exception($"there is no salt with this id = {salt.Id}"); 
@@ -148,11 +142,11 @@ namespace TWC_Services.DBService
             }
         }
 
-        public async Task DeleteSaltById(int id)
+        public async Task DeleteSaltByIdAsync(int id)
         {
             try
             {
-                var salt = await GetSaltById(id);
+                var salt = await GetSaltByIdAsync(id);
                 if (salt == null)
                     throw new Exception($"salt with id = {salt.Id} not exist");
 

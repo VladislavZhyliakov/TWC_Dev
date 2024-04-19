@@ -23,11 +23,11 @@ namespace TWC_Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> GetAllUsers()
+        public async Task<ActionResult<List<User>>> GetAllUsersAsync()
         {
             try
             {
-                return Ok(await _dBService.GetAllUsers());
+                return Ok(await _dBService.GetAllUsersAsync());
             }
             catch (Exception ex)
             {
@@ -37,11 +37,11 @@ namespace TWC_Backend.Controllers
 
         [HttpGet]
         [Route("/User/{id}")]
-        public async Task<ActionResult<List<User>>> GetUserById(int id)
+        public async Task<ActionResult<List<User>>> GetUserByIdAsync(int id)
         {
             try
             {
-                return Ok(await _dBService.GetUserById(id));
+                return Ok(await _dBService.GetUserByIdAsync(id));
             }
             catch (Exception ex)
             {
@@ -51,24 +51,24 @@ namespace TWC_Backend.Controllers
 
         [HttpPost]
         [Route("/User/Authentication")]
-        public async Task<ActionResult<User>> AuthenticationUser(UserAuthenticationDTO userAuthenticationDTO)
+        public async Task<ActionResult<User>> AuthenticationUserAsync(UserAuthenticationDTO userAuthenticationDTO)
         {
             try
             {
                 if (!ModelState.IsValid)
                     throw new Exception("Invalid data. Please check the data. Email must be in the correct format and password must be longer than 8 characters!");
 
-                var user = await _dBService.GetUserByEmail(userAuthenticationDTO.Email);
+                var user = await _dBService.GetUserByEmailAsync(userAuthenticationDTO.Email);
 
                 if (user == null)
                     throw new Exception("User with this email does not exist!");
 
-                var salt = await _dBService.GetSaltByUserId(user.Id);
+                var salt = await _dBService.GetSaltByUserIdAsync(user.Id);
+
                 if (!_hashService.PasswordVerification(userAuthenticationDTO.Password, user.Password, salt.Salt))
                 {
                     throw new Exception("Password is wrong!");
                 }
-
 
                 return Ok(user);
             }
@@ -80,27 +80,27 @@ namespace TWC_Backend.Controllers
 
         [HttpPost]
         [Route("/User/Registration")]
-        public async Task<ActionResult<User>> RegistrationUser(UserRegistrationDTO userRegistrationDTO)
+        public async Task<ActionResult<User>> RegistrationUserAsync(UserRegistrationDTO userRegistrationDTO)
         {
             try
             {
                 if (!ModelState.IsValid)
                     throw new Exception("Invalid data. Please check the data. Username must be longer than 3 characters, email must be in the correct format and password must be longer than 8 characters!");
 
-                if (await _dBService.GetUserByEmail(userRegistrationDTO.Email) != null)
+                if (await _dBService.GetUserByEmailAsync(userRegistrationDTO.Email) != null)
                     throw new Exception("User with this email already exists!");
 
                 byte[] salt;
                 userRegistrationDTO.Password = _hashService.HashPassword(userRegistrationDTO.Password, out salt);
 
-                User user = await _dBService.AddUser(_registrationMapper.Unmap(userRegistrationDTO));
+                User user = await _dBService.AddUserAsync(_registrationMapper.Unmap(userRegistrationDTO));
 
                 PasswordSalt passwordSalt = new PasswordSalt {
                     Salt = salt,
                     UserId = user.Id
                 };
 
-                await _dBService.AddSalt(passwordSalt);
+                await _dBService.AddSaltAsync(passwordSalt);
 
                 return Ok(user);
             }
@@ -111,11 +111,11 @@ namespace TWC_Backend.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteUserById(int id)
+        public async Task<ActionResult> DeleteUserByIdAsync(int id)
         {
             try
             {
-                await _dBService.DeleteUser(id);
+                await _dBService.DeleteUserAsync(id);
 
                 return Ok();
             }
