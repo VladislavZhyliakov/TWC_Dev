@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TWC_DatabaseLayer\TWC_DatabaseLayer.csproj" />
+    <ProjectReference Include="..\TWC_Services\TWC_Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 @TWC_Backend_HostAddress = http://localhost:5231
 
-GET {{TWC_Backend_HostAddress}}/weatherforecast/
+GET {{TWC_Backend_HostAddress}}/user/
 Accept: application/json
 
 ###

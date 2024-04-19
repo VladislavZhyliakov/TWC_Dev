@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWC_Backend", "TWC_Backend\TWC_Backend.csproj", "{88ED6ADB-E514-43C9-9829-B252345A26BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWC_Backend", "TWC_Backend\TWC_Backend.csproj", "{88ED6ADB-E514-43C9-9829-B252345A26BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWC_DatabaseLayer", "TWC_DatabaseLayer\TWC_DatabaseLayer.csproj", "{12047C91-85F5-42C6-B0FF-50D57D972863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWC_DatabaseLayer", "TWC_DatabaseLayer\TWC_DatabaseLayer.csproj", "{12047C91-85F5-42C6-B0FF-50D57D972863}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWC_Services", "TWC_Services\TWC_Services.csproj", "{9E63D58D-0C2A-4F93-8875-C34F9A2DC83E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{12047C91-85F5-42C6-B0FF-50D57D972863}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12047C91-85F5-42C6-B0FF-50D57D972863}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12047C91-85F5-42C6-B0FF-50D57D972863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E63D58D-0C2A-4F93-8875-C34F9A2DC83E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E63D58D-0C2A-4F93-8875-C34F9A2DC83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E63D58D-0C2A-4F93-8875-C34F9A2DC83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E63D58D-0C2A-4F93-8875-C34F9A2DC83E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

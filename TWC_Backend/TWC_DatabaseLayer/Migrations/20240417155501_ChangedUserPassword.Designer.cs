@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TWC_DatabaseLayer;
 
@@ -11,9 +12,11 @@ using TWC_DatabaseLayer;
 namespace TWC_DatabaseLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240417155501_ChangedUserPassword")]
+    partial class ChangedUserPassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,29 +73,6 @@ namespace TWC_DatabaseLayer.Migrations
                     b.HasIndex("ChatId");
 
                     b.ToTable("Messages");
-                });
-
-            modelBuilder.Entity("TWC_DatabaseLayer.Models.PasswordSalt", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<byte[]>("Salt")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("PasswordSalts");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.Project", b =>
@@ -270,15 +250,6 @@ namespace TWC_DatabaseLayer.Migrations
                     b.Navigation("Chat");
                 });
 
-            modelBuilder.Entity("TWC_DatabaseLayer.Models.PasswordSalt", b =>
-                {
-                    b.HasOne("TWC_DatabaseLayer.Models.User", null)
-                        .WithOne("PasswordSalt")
-                        .HasForeignKey("TWC_DatabaseLayer.Models.PasswordSalt", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TWC_DatabaseLayer.Models.ProjectMember", b =>
                 {
                     b.HasOne("TWC_DatabaseLayer.Models.Project", "Project")
@@ -351,9 +322,6 @@ namespace TWC_DatabaseLayer.Migrations
             modelBuilder.Entity("TWC_DatabaseLayer.Models.User", b =>
                 {
                     b.Navigation("JoinedProjects");
-
-                    b.Navigation("PasswordSalt")
-                        .IsRequired();
 
                     b.Navigation("Tags");
                 });

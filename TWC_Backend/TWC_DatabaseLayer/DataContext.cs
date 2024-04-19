@@ -1,10 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using TWC_DatabaseLayer.Models;
 
 namespace TWC_DatabaseLayer
@@ -22,5 +16,6 @@ namespace TWC_DatabaseLayer
         public virtual DbSet<ProjectMember> ProjectMembers { get; set; }
         public virtual DbSet<Chat> Chats { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<PasswordSalt> PasswordSalts { get; set; }
     }
 }

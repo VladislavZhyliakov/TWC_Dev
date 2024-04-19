@@ -2,13 +2,11 @@
 
 namespace TWC_DatabaseLayer.Models
 {
-    public class UserTag
+    public class PasswordSalt
     {
         [Key]
         public int Id { get; set; }
-        public int TagId { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
-        public Tag Tag { get; set; }
+        public byte[] Salt { get; set; }
     }
 }
