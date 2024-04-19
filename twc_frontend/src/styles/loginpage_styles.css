@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.authPageRoot {
+    width: 100%;
+    height: 100vh;
+
+    background-color: bisque;
+}
+
+.authPage {
+    width: 80%;
+    height: 80vh;
+    margin-top: 10vh;
+    margin-left: 10%;
+
+    position: absolute;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    background-color: aqua;
+    border-radius: 30px;
+}
+
+.authCard {
+    width: 30%;
+    height: 81%;
+
+    background-color: white;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+}
+
+.authCardNavBar {
+    width: 100%;
+    height: 7%;
+    background-color: black;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-style: none;
+}
+
+.authCardNavBarButton {
+    float: left;
+    width: 20%;
+    height: 100%;
+    background-color: black;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.authCardNavBarButton:first-child {
+    border-top-left-radius: 6px;
+    background-color: white;
+}
+
+.authCardNavBarButtonText {
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.loginCardRoot {
+    width: 100%;
+    height: 95%;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.loginCard {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginCardTitle {
+    width: 80%;
+    height: 20%;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 30px;
+    font-weight: 650;
+
+    background-color: white;
+}
+
+.loginCardForm {
+    width: 90%;
+    height: 80%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginCardForm_inputWarning{
+
+    margin-top: 1%;
+
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 650;
+
+    color: red;
+    visibility: collapse;
+}
+
+.loginCardForm_passButton{
+    width: 34px;
+    height: 34px;
+
+    margin-top: 9.41%;
+    margin-left: 25%;
+    cursor: pointer;
+    position: absolute;
+}
