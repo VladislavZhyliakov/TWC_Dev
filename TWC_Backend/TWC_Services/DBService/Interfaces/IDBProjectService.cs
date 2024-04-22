@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TWC_DatabaseLayer.DTOs;
+﻿using TWC_DatabaseLayer.DTOs;
 using TWC_DatabaseLayer.Models;
 
 namespace TWC_Services.DBService.Interfaces
@@ -16,5 +11,7 @@ namespace TWC_Services.DBService.Interfaces
         public Task<Project> CreateProjectAsync(ProjectCreationDTO project);
         public Task<Project> EditProjectAsync(Project project);
         public Task<Project> DeleteProjectAsync(int id);
+        public Task<Project> AddMemberToProjectAsync(User user, Project project);
+        public Task<Project> RemoveMemberFromProjectAsync(User user, Project project);
     }
 }

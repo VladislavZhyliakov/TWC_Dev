@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TWC_DatabaseLayer;
 using TWC_DatabaseLayer.DTOs;
 using TWC_DatabaseLayer.Models;
@@ -15,7 +10,9 @@ namespace TWC_Services.DBService.Services
     {
         private DataContext _context;
 
-        public DBProjectService(DataContext context) { _context = context; }
+        public DBProjectService(DataContext context) {
+            _context = context; 
+        }
         public async Task<Project> CreateProjectAsync(ProjectCreationDTO project)
         {
             throw new NotImplementedException();
@@ -64,6 +61,57 @@ namespace TWC_Services.DBService.Services
             {
                 throw new Exception($"cant found {typeof(Project).Name} by id. Messege error: " + ex.Message);
             }
+        }
+        private async Task<Project> AddMemberToProjectAsync(User user, Project project, bool isOwner)
+        {
+            ProjectMember existingMember = await _context.ProjectMembers
+                .FirstOrDefaultAsync(pm => pm.ProjectId == project.Id && pm.UserId == user.Id);
+
+            if (existingMember != null)
+            {
+                return project;
+            }
+
+            ProjectMember newProjectMember = new ProjectMember
+            {
+                ProjectId = project.Id,
+                UserId = user.Id,
+                IsOwner = isOwner
+            };
+
+            await _context.ProjectMembers.AddAsync(newProjectMember);
+            await _context.SaveChangesAsync();
+
+            await _context.Entry(project).Collection(p => p.Members).LoadAsync();
+
+            return project;
+        }
+
+        public async Task<Project> AddMemberToProjectAsync(User user, Project project)
+        {
+            return await AddMemberToProjectAsync(user, project, isOwner: false);
+        }
+
+        public async Task<Project> RemoveMemberFromProjectAsync(User user, Project project)
+        {
+            ProjectMember memberToRemove = await _context.ProjectMembers
+                .FirstOrDefaultAsync(pm => pm.ProjectId == project.Id && pm.UserId == user.Id);
+
+            if(memberToRemove == null)
+            {
+                return project;
+            }
+            if(memberToRemove.IsOwner)
+            {
+                throw new Exception("You can not remove owner User from Project members");
+            }
+
+            _context.ProjectMembers.Remove(memberToRemove);
+            await _context.SaveChangesAsync();
+
+            await _context.Entry(project).Collection(p => p.Members).LoadAsync();
+
+            return project;
         }
     }
 }
