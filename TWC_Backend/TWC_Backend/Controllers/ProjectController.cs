@@ -4,6 +4,7 @@ using TWC_Services.Mapper;
 using TWC_DatabaseLayer.Models;
 using TWC_Services.DBService.Interfaces;
 using TWC_DatabaseLayer;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace TWC_Backend.Controllers
 {
@@ -50,14 +51,51 @@ namespace TWC_Backend.Controllers
 
             Project newProject = await _dbProjectService.CreateProjectAsync(project);
 
+            if (newProject == null)
+            {
+                return NotFound("Project or projects fields not found");
+            }
+
             return Ok(newProject);
+        }
+
+        [HttpPut]
+        [Route("EditProject")]
+        public async Task<ActionResult<Project>> EditProject(ProjectEditDTO editProject)
+        {
+
+            Project edited = await _dbProjectService.EditProjectAsync(editProject);
+
+            if(edited == null) 
+            {
+                return NotFound("Project not found");
+            }
+
+            return Ok(await _dbProjectService.GetAllProjectsAsync());
+        }
+
+        [HttpDelete]
+        [Route("DeleteProject")]
+        public async Task<ActionResult<Project>> DeleteProject(int projectId)
+        {
+
+            await _dbProjectService.DeleteProjectAsync(projectId);
+
+            return Ok(await _dbProjectService.GetAllProjectsAsync());
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Project>> GetProjectByIdAsync(int id)
         {
-            return Ok(_dbProjectService.GetProjectByIdAsync(id));
+            Project project = await _dbProjectService.GetProjectByIdAsync(id);
+
+            if(project == null)
+            {
+                return NotFound("Project not found");
+            }
+
+            return Ok(project);
         }
         [HttpPut]
         [Route("AddMember")]
