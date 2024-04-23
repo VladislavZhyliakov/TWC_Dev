@@ -1,0 +1,346 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.searchPageRoot {
+    width: 100%;
+    height: 93vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: antiquewhite;
+}
+
+.searchPage {
+    width: 60%;
+    height: 80vh;
+
+    background-color: aqua;
+}
+
+.searchPageLeftField {
+    width: 20%;
+    height: 100%;
+
+    background-color: aquamarine;
+
+    float: left;
+}
+
+.searchPageCardField {
+
+    width: 60%;
+    height: 94%;
+
+    background-color: blue;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    float: left;
+}
+
+.searchPageRightField {
+    width: 20%;
+    height: 100%;
+
+    background-color: aquamarine;
+
+    float: left;
+}
+
+.searchProjectsCardContainer {
+    height: 100%;
+    width: 100%;
+
+    border-color: black;
+    border-style: solid;
+    z-index: 1;
+
+    position: relative;
+    /* Додали цю властивість */
+}
+
+.searchProjectsCardSwaper {
+    height: 100%;
+    width: 100%;
+
+    perspective: 1000px;
+    perspective-origin: center 50%;
+    transform-style: preserve-3d;
+
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+
+    position: absolute;
+    /* Додаємо абсолютне позиціонування */
+    top: 0;
+    /* Встановлюємо верхній край на нульову позицію */
+    left: 0;
+    /* Встановлюємо лівий край на нульову позицію */
+    width: 100%;
+    /* Розмір карти відповідає розміру контейнера */
+    height: 100%;
+    /* Розмір карти відповідає розміру контейнера */
+    transform-style: preserve-3d;
+    /* Зберігаємо 3D-трансформації */
+}
+
+.searchProjectsCard {
+    width: 95%;
+    max-width: 600px;
+    height: 95%;
+    max-height: 600px;
+    will-change: transform;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: black;
+    box-shadow: 0 10px 100px -10px rgba(50, 50, 73, 0.4), 0 10px 10px -10px rgba(50, 50, 73, 0.3);
+
+    overflow: hidden;
+    background-color: #f0f8ff;
+}
+
+.projectCardHeader {
+    width: 100%;
+    height: 25%;
+
+    background-color: bisque;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    border-style: none;
+}
+
+.projectCardBody {
+    width: 100%;
+    height: 75%;
+
+    border-style: none;
+}
+
+.projectCardTitle {
+    width: 90%;
+    height: 20%;
+    margin-left: 5%;
+
+    align-items: center;
+    display: flex;
+    font-family: monospace;
+    font-size: calc((3vw + 3vh) / 2);
+    font-weight: 650;
+
+    margin-top: -8%;
+}
+
+.projectCardTags {
+    width: 90%;
+    height: 20%;
+    margin-left: 5%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.projectCardsTagsHeader {
+    height: 40%;
+
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+
+    color: gray;
+}
+
+.projectCardsTagsChips {
+    height: 60%;
+}
+
+.projectCardType {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.projectCardsTypeHeader {
+    margin-bottom: 1%;
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+
+    color: gray;
+}
+
+.projectCardTypeText {
+    margin-bottom: 3%;
+
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 800;
+}
+
+.projectCardDescription {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.projectCardsDescriptionHeader {
+    height: 25%;
+    margin-bottom: 1%;
+
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 800;
+
+    color: gray;
+}
+
+.projectCardDescriptionText {
+    margin-bottom: 3%;
+
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 800;
+}
+
+.projectCardMembers {
+    width: 90%;
+    height: 20%;
+    margin-left: 5%;
+}
+
+.peopleCardHeader {
+    width: 100%;
+    height: 30%;
+
+    border-style: none;
+}
+
+.peopleCardUserPic {
+    width: calc((1.5vw + 1.5vh) * 2.5);
+    height: calc((1.5vw + 1.5vh) * 2.5);
+
+    margin-left: 5%;
+    margin-top: 5%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+
+    background-color: aqua;
+}
+
+.peopleCardCreds {
+    margin-left: 5%;
+    margin-top: 1.5%;
+
+    align-items: center;
+    display: flex;
+    font-family: monospace;
+    font-size: calc((3vw + 3vh) / 2);
+    font-weight: 650;
+
+    float: left;
+
+}
+
+.peopleCardGender {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 4.5%;
+
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+
+    float: left;
+
+    color: #074173;
+}
+
+.peopleCradAge {
+    margin-top: 4.5%;
+
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+
+    color: #2D9596;
+}
+
+.peopleCardBody {
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.peopleCardTags {
+    margin-top: 3%;
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+
+    color: gray;
+}
+
+.peopleCardTagsTitle{
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+
+    color: gray;
+}
+
+.peopleCradTagsChips{
+    margin-top: 1.5%;
+
+    align-items: center;
+    display: flex;
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+}
+
+.peopleCardAboutInfo {
+    margin-top: 1.5%;
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+}
+
+.peopleCardAboutTitle{
+    margin-top: 3%;
+    color: gray;
+}
+
+.peopleCardAboutText{
+    margin-top: 1.5%;
+}
+
+.peopleCardMemberships {
+    font-family: monospace;
+    font-size: calc((1.5vw + 1.5vh) / 2);
+    font-weight: 650;
+}
+
+.peopleCardMembershipsChips{
+    margin-top: 1.5%;
+}
+
+.peopleCardMembershipsTitle{
+    margin-top: 3%;
+    color: gray;
+}
+
