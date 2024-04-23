@@ -3,6 +3,7 @@ using TWC_DatabaseLayer.DTOs;
 using TWC_Services.Mapper;
 using TWC_DatabaseLayer.Models;
 using TWC_Services.DBService.Interfaces;
+using TWC_DatabaseLayer;
 
 namespace TWC_Backend.Controllers
 {
@@ -13,19 +14,23 @@ namespace TWC_Backend.Controllers
         private IDBProjectService _dbProjectService;
         private IDBUserService _dbUserService;
         private IMapper<Project, ProjectCreationDTO> _projectMapper;
+        private IDBTagService _dbTagService;
 
         public ProjectController(
             IDBProjectService dbProjectService,
             IDBUserService dbUserService,
-            IMapper<Project, ProjectCreationDTO> projectMapper)
+            IMapper<Project, ProjectCreationDTO> projectMapper,
+            IDBTagService dBTagService
+            )
         {
             _dbProjectService = dbProjectService;
             _projectMapper = projectMapper;
             _dbUserService = dbUserService;
+            _dbTagService = dBTagService;
         }
 
         [HttpGet]
-        [Route("All")]
+        [Route("GetAllProjects")]
         public async Task<ActionResult<List<Project>>> GetAllProjectsAsync()
         {
             try
@@ -37,6 +42,17 @@ namespace TWC_Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("AddProject")]
+        public async Task<ActionResult<Project>> AddProject(ProjectCreationDTO project)
+        {
+
+            Project newProject = await _dbProjectService.CreateProjectAsync(project);
+
+            return Ok(newProject);
+        }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Project>> GetProjectByIdAsync(int id)
@@ -44,14 +60,14 @@ namespace TWC_Backend.Controllers
             return Ok(_dbProjectService.GetProjectByIdAsync(id));
         }
         [HttpPut]
-        [Route("Member")]
+        [Route("AddMember")]
         public async Task<ActionResult<Project>> AddUserToProjectAsync(ProjectMemberDTO projectMemberDTO)
         {
             return await ModifyProjectMembershipAsync(projectMemberDTO, add: true);
         }
 
         [HttpDelete]
-        [Route("Member")]
+        [Route("RemoveMember")]
         public async Task<ActionResult<Project>> RemoveUserFromProjectAsync(ProjectMemberDTO projectMemberDTO)
         {
             return await ModifyProjectMembershipAsync(projectMemberDTO, add: false);
@@ -77,6 +93,8 @@ namespace TWC_Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
 
     }
 }

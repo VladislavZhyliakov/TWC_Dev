@@ -17,9 +17,11 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
 
 builder.Services.AddScoped<IDBUserService, DBUserService>();
 builder.Services.AddScoped<IDBProjectService, DBProjectService>();
+builder.Services.AddScoped<IDBTagService, DBTagService>();
 builder.Services.AddScoped<IDBPasswordSaltService, DBPasswordSaltService>();
 builder.Services.AddScoped<IHashService, HashService>();
 builder.Services.AddScoped<IMapper<User, UserRegistrationDTO>, UserRegistrationMapper>();
+builder.Services.AddScoped<IMapper<Project, ProjectCreationDTO>, ProjectCreationMapper>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

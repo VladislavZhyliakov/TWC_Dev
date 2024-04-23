@@ -15,7 +15,8 @@ namespace TWC_DatabaseLayer.DTOs
         public int MaxMembers { get; set; }
         [MaxLength(500)]
         public string Description { get; set; }
-        public List<ProjectTagsDTO> Tags { get; set; }
+        [Required]
+        public List<string> Tags { get; set; }
 
 
         [Required]
