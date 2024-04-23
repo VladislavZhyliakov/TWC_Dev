@@ -8,7 +8,7 @@ function fontSizeForTag(label) {
     const baseSize = 16; // Базовий розмір шрифту у пікселях
     const maxTextLength = 10; // Максимальна довжина тексту, при якій шрифт буде найбільший
     const scaleFactor = Math.max(0.75, 1 - (label.length / maxTextLength * 0.5));
-    return `calc((1.5vw + 1.5vh)) * ${baseSize * scaleFactor}`;//шиза, треба щось інше
+    return `calc((1.5vw + 1.5vh) / 2 * ${scaleFactor} * 1.1)`;//шиза, треба щось інше
 }
 
 
