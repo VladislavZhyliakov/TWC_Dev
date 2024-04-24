@@ -31,13 +31,11 @@ const LoginCard = function () {
         message.style.visibility = "visible";
     }
 
-    const handleLoginChange = function(event)
-    {
+    const handleLoginChange = function (event) {
         SetLoginValue(event.target.value);
     }
 
-    const handlePassChange = function(event)
-    {
+    const handlePassChange = function (event) {
         SetPassValue(event.target.value);
     }
 
@@ -60,42 +58,44 @@ const LoginCard = function () {
                     Welcome back!
                 </div>
 
-                <div className="loginCardForm" style={{marginTop:"3%"}}>
-                    <form>
-                        <FormControl variant="standard">
-                            <InputLabel size="normal" style={{ fontFamily: "monospace", fontWeight: "700", fontSize: "20px" }} shrink htmlFor="loginCardForm_Email">
+                <div className="loginCardForm" style={{ marginTop: "3%"}}>
+                    <form style={{height:"60%"}}>
+                        <FormControl variant="standard" style={{height:"40%"}}>
+                            <InputLabel size="normal" style={{ fontFamily: "monospace", fontWeight: "700", fontSize: 'calc((1.7vw + 1.7vh) / 2)' }} shrink htmlFor="loginCardForm_Email">
                                 Email:
                             </InputLabel>
-                            <CustomInput value={loginValue} onChange={handleLoginChange} id="loginCardForm_Email" />
+                            <CustomInput value={loginValue} onChange={handleLoginChange} id="loginCardForm_Email" style={{ fontSize: 'calc((1.7vw + 1.7vh) / 2.5)' }} />
                             <div className="loginCardForm_inputWarning" id="loginCardForm_EmailWarning">Email error!</div>
                         </FormControl>
 
-                        <FormControl>
-                            <InputLabel size="normal" style={{ marginTop: "9%", marginLeft: "-3.5%", fontFamily: "monospace", fontWeight: "700", fontSize: "20px" }} shrink htmlFor="loginCardForm_Pass">
+                        <FormControl variant="standard" style={{height:"40%", marginTop:"5%"}}>
+                            <InputLabel size="normal" style={{fontFamily: "monospace", fontWeight: "700", fontSize: 'calc((1.7vw + 1.7vh) / 2)' }} shrink htmlFor="loginCardForm_Pass">
                                 Pass:
                             </InputLabel>
-                            <CustomInput value={passValue} type='password' onChange={handlePassChange} style={{ marginTop: "13%" }} defaultValue="" id="loginCardForm_Pass" />
-                            <div className="loginCardForm_inputWarning" id="loginCardForm_PassWarning">Pass Error!</div>
+                            
+                            <CustomInput value={passValue} type='password' onChange={handlePassChange} style={{fontSize: 'calc((1.7vw + 1.7vh) / 2.5)', float:"left" }} defaultValue="" id="loginCardForm_Pass" />
+                            
+                            <div className="loginCardForm_passButton" onMouseDown={(event) => showPass(event)} onMouseUp={(event) => hidePass(event)}>
+                                <Icon component={isPassVisible ? RemoveRedEyeOutlinedIcon : VisibilityOffOutlinedIcon} style={{ width: 'calc((2vw + 2vh) / 1.7)', height: 'calc((2vw + 2vh) / 1.7)', filter:"invert(1)"}} />
+                            </div>
+                            
+                            <div className="loginCardForm_inputWarning" id="loginCardForm_PassWarning" style={{visibility:"hidden"}}>Pass Error!</div>
                         </FormControl>
 
-                        <FormControlLabel style={{ marginTop: "-5px" }}
+                        <FormControlLabel style={{ height:"calc((1.6vw + 1.6vh) / 1)", marginTop:"calc((1.6vw + 1.6vh) / 2.8)"}}
                             control={<Checkbox />}
                             label="Remember me"
                             sx={{
                                 '& .MuiTypography-root': { // Звертання до тексту лейбла
                                     fontFamily: 'monospace', // Ваш шрифт
-                                    fontSize: '20', // Розмір шрифту
+                                    fontSize: 'calc((1.5vw + 1.5vh) / 2)', // Розмір шрифту
                                 }
                             }}
                         />
                     </form>
 
-                    <div className="loginCardForm_passButton" onMouseDown={(event) => showPass(event)} onMouseUp={(event) => hidePass(event)}>
-                        <Icon component={isPassVisible ? RemoveRedEyeOutlinedIcon : VisibilityOffOutlinedIcon} style={{ width: "34px", height: "34px" }} />
-                    </div>
-
-                    <CustomButton style={{ width: "50%", height: "16%", marginTop: "10%" }} variant="outlined">Log In</CustomButton>
-                    <Link style={{ marginTop: "3%", color: "#0E46A3", cursor: "pointer", fontFamily: "monospace" }}>Forgot Password?</Link>
+                    <CustomButton style={{ width: "50%", height: "16%", marginTop: "18%", fontSize: 'calc((3.0vw + 3.0vh) / 3)' }} variant="outlined">Log In</CustomButton>
+                    <Link style={{ marginTop: "3%", color: "#0E46A3", cursor: "pointer", fontFamily: "monospace", fontSize: 'calc((1.5vw + 1.5vh) / 3)' }}>Forgot Password?</Link>
                 </div>
             </div>
         </div>

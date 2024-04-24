@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { alpha, styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,9 +14,9 @@ import '../../styles/loginpage_styles.css'
 import { FormLabel } from "@mui/material";
 import CustomInput from "./customInput";
 import CustomButton from "./customButton";
+import CustomInputSignIn from "./customInputSignIn";
 
-const SignInCard = function()
-{
+const SignInCard = function () {
     const [isPassVisible, SetIsPassVisible] = useState(false);
     const [usernameValue, SetUsernameValue] = useState("");
     const [loginValue, SetLoginValue] = useState("");
@@ -33,23 +33,19 @@ const SignInCard = function()
         message.style.visibility = "visible";
     }
 
-    const handleUsernameChange = function(event)
-    {
+    const handleUsernameChange = function (event) {
         SetUsernameValue(event.target.value);
     }
 
-    const handleLoginChange = function(event)
-    {
+    const handleLoginChange = function (event) {
         SetLoginValue(event.target.value);
     }
 
-    const handlePassChange = function(event)
-    {
+    const handlePassChange = function (event) {
         SetPassValue(event.target.value);
     }
 
-    const handleConfirmPassChange = function(event)
-    {
+    const handleConfirmPassChange = function (event) {
         SetConfirmPassValue(event.target.value);
     }
 
@@ -69,53 +65,54 @@ const SignInCard = function()
         SetIsPassVisible(false);
     }
 
-    return(
+    return (
         <div className="loginCardRoot">
-            <div className="loginCard" style={{marginTop:"-10%"}}>
+            <div className="loginCard" style={{ marginTop: "-10%" }}>
                 <div className="loginCardTitle">
                     Welcome!
                 </div>
 
                 <div className="loginCardForm">
-                    <form>
-                        <FormControl variant="standard">
-                            <InputLabel size="normal" style={{ fontFamily: "monospace", fontWeight: "700", fontSize: "20px" }} shrink htmlFor="signinCardForm_UserName">
+                    <form style={{ height: "90%" }}>
+                        <FormControl variant="standard" style={{ height: "25%"}}>
+                            <InputLabel size="normal" style={{ fontFamily: "monospace", fontWeight: "700", fontSize: 'calc((1.7vw + 1.7vh) / 2)' }} shrink htmlFor="signinCardForm_UserName">
                                 User name:
                             </InputLabel>
-                            <CustomInput value={usernameValue} onChange={handleUsernameChange} id="signinCardForm_UserName" />
-                            <div className="loginCardForm_inputWarning" id="loginCardForm_EmailWarning">Email error!</div>
+                            <CustomInputSignIn value={usernameValue} onChange={handleUsernameChange} id="signinCardForm_UserName" style={{ marginTop: "6%", fontSize: 'calc((1.7vw + 1.7vh) / 2.5)'}} />
+                            <div className="loginCardForm_inputWarning" id="loginCardForm_EmailWarning" style={{marginTop:"-1%"}}>UserName Error!</div>
                         </FormControl>
 
-                        <FormControl variant="standard">
-                            <InputLabel size="normal" style={{ fontFamily: "monospace", fontWeight: "700", fontSize: "20px" }} shrink htmlFor="signinCardForm_Email">
+                        <FormControl variant="standard" style={{ height: "25%"}}>
+                            <InputLabel size="normal" style={{ fontFamily: "monospace", fontWeight: "700", fontSize: 'calc((1.7vw + 1.7vh) / 2)' }} shrink htmlFor="signinCardForm_Email">
                                 Email:
                             </InputLabel>
-                            <CustomInput value={loginValue} onChange={handleLoginChange} id="signinCardForm_Email" />
-                            <div className="loginCardForm_inputWarning" id="loginCardForm_EmailWarning">Email error!</div>
+                            <CustomInputSignIn value={loginValue} onChange={handleLoginChange} id="signinCardForm_Email" style={{ marginTop: "6%",  fontSize: 'calc((1.7vw + 1.7vh) / 2.5)' }} />
+                            <div className="loginCardForm_inputWarning" id="loginCardForm_EmailWarning" style={{ marginTop:"-1%"}}>Email error!</div>
                         </FormControl>
 
-                        <FormControl>
-                            <InputLabel size="normal" style={{ marginTop: "2%", marginLeft: "-3.5%", fontFamily: "monospace", fontWeight: "700", fontSize: "20px" }} shrink htmlFor="signInCardForm_Pass">
+                        <FormControl variant="standard" style={{ height: "25%"}}>
+                            <InputLabel size="normal" style={{fontFamily: "monospace", fontWeight: "700", fontSize: 'calc((1.7vw + 1.7vh) / 2)' }} shrink htmlFor="signInCardForm_Pass">
                                 Password:
                             </InputLabel>
-                            <CustomInput value={passValue} type='password' onChange={handlePassChange} style={{ marginTop: "6%" }} defaultValue="" id="signInCardForm_Pass" />
-                            <div className="loginCardForm_inputWarning" id="loginCardForm_PassWarning">Pass Error!</div>
+                            <CustomInputSignIn value={passValue} type='password' onChange={handlePassChange} defaultValue="" id="signInCardForm_Pass" style={{ marginTop: "6%", fontSize: 'calc((1.7vw + 1.7vh) / 2.5)' }} />
+
+                            <div className="loginCardForm_passButton" style={{ marginTop: "6.9%" }} onMouseDown={(event) => showPass(event)} onMouseUp={(event) => hidePass(event)}>
+                                <Icon component={isPassVisible ? RemoveRedEyeOutlinedIcon : VisibilityOffOutlinedIcon} style={{ width: 'calc((2vw + 2vh) / 1.7)', height: 'calc((2vw + 2vh) / 1.7)', filter:"invert(1)"}} />
+                            </div>
+
+                            <div className="loginCardForm_inputWarning" id="loginCardForm_PassWarning" style={{visibility:"hidden", marginTop:"-1%"}}>Pass Error!</div>
                         </FormControl>
 
-                        <FormControl>
-                            <InputLabel size="normal" style={{ marginTop: "2%", marginLeft: "-3.5%", fontFamily: "monospace", fontWeight: "700", fontSize: "20px" }} shrink htmlFor="signInCardForm_RepeatPass">
+                        <FormControl variant="standard" style={{ height: "25%"}}>
+                            <InputLabel size="normal" style={{fontFamily: "monospace", fontWeight: "700", fontSize: 'calc((1.7vw + 1.7vh) / 2)' }} shrink htmlFor="signInCardForm_ConfirmPass">
                                 Confirm Password:
                             </InputLabel>
-                            <CustomInput value={confirmPassValue} type='password' onChange={handleConfirmPassChange} style={{ marginTop: "6%" }} defaultValue="" id="signInCardForm_ConfirmPass" />
-                            <div className="loginCardForm_inputWarning" id="loginCardForm_PassWarning">Pass Error!</div>
+                            <CustomInputSignIn value={confirmPassValue} type='password' onChange={handleConfirmPassChange} defaultValue="" id="signInCardForm_ConfirmPass" style={{ marginTop: "6%", fontSize: 'calc((1.7vw + 1.7vh) / 2.5)' }} />
+                            <div className="loginCardForm_inputWarning" style={{ marginTop:"-1%"}} id="loginCardForm_PassWarning">Pass Error!</div>
                         </FormControl>
                     </form>
 
-                    <div className="loginCardForm_passButton" style={{marginTop:"13.7%"}} onMouseDown={(event) => showPass(event)} onMouseUp={(event) => hidePass(event)}>
-                        <Icon component={isPassVisible ? RemoveRedEyeOutlinedIcon : VisibilityOffOutlinedIcon} style={{ width: "34px", height: "34px" }} />
-                    </div>
-
-                    <CustomButton style={{ width: "50%", height: "16%", marginTop: "2%" }} variant="outlined">Sign In</CustomButton>
+                    <CustomButton style={{ width: "50%", height: "16%", marginTop: "2%", fontSize: 'calc((3.0vw + 3.0vh) / 3)' }} variant="outlined">Sign In</CustomButton>
                 </div>
             </div>
         </div>

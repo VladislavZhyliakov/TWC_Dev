@@ -64,7 +64,7 @@
 
 .authCardNavBarButtonText {
     font-family: monospace;
-    font-size: 16px;
+    font-size: calc((1.5vw + 1.5vh) / 2.2);
     font-weight: 650;
     cursor: pointer;
 }
@@ -95,7 +95,7 @@
     display: flex;
     justify-content: center;
     font-family: monospace;
-    font-size: 30px;
+    font-size: calc((3vw + 3vh) / 2.1);
     font-weight: 650;
 
     background-color: white;
@@ -115,7 +115,8 @@
     margin-top: 1%;
 
     font-family: monospace;
-    font-size: 14px;
+    font-size: calc((1.7vw + 1.7vh) / 2.6);
+    margin-bottom: 2%;
     font-weight: 650;
 
     color: red;
@@ -123,11 +124,19 @@
 }
 
 .loginCardForm_passButton{
-    width: 34px;
-    height: 34px;
+    width: calc((2vw + 2vh) / 1.6);
+    height: calc((2vw + 2vh) / 1.6);
 
-    margin-top: 9.41%;
-    margin-left: 25%;
+    margin-top: 11.6%;
+    margin-left: 95%;
     cursor: pointer;
     position: absolute;
+
+    background-color: black;
+    border-radius: 20%;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
 }

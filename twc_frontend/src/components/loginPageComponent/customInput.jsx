@@ -15,7 +15,7 @@ const CustomInput = styled(InputBase)(({ theme }) => ({
         fontSize: "100%",
         fontWeight: 600,
         width: '16.6vw',
-        padding: '1.1vh 16px',
+        padding: '1.1vh 1.4vw',
         transition: theme.transitions.create([
             'border-color',
             'background-color',
