@@ -3,28 +3,24 @@ using TWC_DatabaseLayer;
 using TWC_DatabaseLayer.DTOs;
 using TWC_DatabaseLayer.Models;
 using TWC_Services.DBService.Interfaces;
+using TWC_Services.Mapper;
 
 namespace TWC_Services.DBService.Services
 {
     public class DBProjectService : IDBProjectService
     {
         private DataContext _context;
+        private ProjectCreationMapper _mapper;
 
         public DBProjectService(DataContext context) {
             _context = context; 
+            _mapper = new ProjectCreationMapper();
         }
         public async Task<Project> CreateProjectAsync(ProjectCreationDTO project)
         {
             try
             {
-                var newProject = new Project()
-                {
-                    Name = project.Name,
-                    MaxMembers = project.MaxMembers,
-                    Description = project.Description,
-                    Members = new List<ProjectMember>(),
-                    Tags = new List<ProjectTag>(),
-                };
+                var newProject = _mapper.Unmap(project);
 
                 await _context.Projects.AddAsync(newProject);
                 await _context.SaveChangesAsync();
@@ -67,14 +63,13 @@ namespace TWC_Services.DBService.Services
                 await _context.SaveChangesAsync();
 
                 await _context.Entry(newProject).Collection(x => x.Tags).LoadAsync();
-                await _context.Entry(newProject).Collection(x => x.Tags).LoadAsync();
                 await _context.Entry(newProject).Collection(x => x.Members).LoadAsync();
 
                 return newProject;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Exception: {ex} in DBProjectService.cs in function CreateProjectAsync");
+                throw new Exception($"Exception: {ex}");
             }
         }
 
@@ -128,7 +123,6 @@ namespace TWC_Services.DBService.Services
 
                 await _context.SaveChangesAsync();
 
-                await _context.Entry(EditProject).Collection(x => x.Tags).LoadAsync();
                 await _context.Entry(EditProject).Collection(x => x.Tags).LoadAsync();
                 await _context.Entry(EditProject).Collection(x => x.Members).LoadAsync();
 

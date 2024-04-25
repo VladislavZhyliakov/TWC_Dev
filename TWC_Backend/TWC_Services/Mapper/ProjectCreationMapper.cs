@@ -27,7 +27,9 @@ namespace TWC_Services.Mapper
             {
                 Name = data.Name,
                 MaxMembers = data.MaxMembers,
-                Description = data.Description,              
+                Description = data.Description,
+                Members = new List<ProjectMember>(),
+                Tags = new List<ProjectTag>(),
             };
         }
     }
