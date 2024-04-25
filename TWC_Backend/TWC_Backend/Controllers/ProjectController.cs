@@ -118,13 +118,30 @@ namespace TWC_Backend.Controllers
                 Project project = await _dbProjectService.GetProjectByIdAsync(projectMemberDTO.ProjectId);
                 User user = await _dbUserService.GetUserByIdAsync(projectMemberDTO.UserId);
 
+                if(project == null)
+                {
+                    throw new InvalidOperationException($"There is no Project with id:{projectMemberDTO.ProjectId}");
+                }
+                if (user == null)
+                {
+                    throw new InvalidOperationException($"There is no User with id:{projectMemberDTO.UserId}");
+                }
+
                 Project editedProject;
                 if (add)
+                {
                     editedProject = await _dbProjectService.AddMemberToProjectAsync(user, project);
+                }
                 else
+                {
                     editedProject = await _dbProjectService.RemoveMemberFromProjectAsync(user, project);
+                }
 
                 return Ok(editedProject);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {

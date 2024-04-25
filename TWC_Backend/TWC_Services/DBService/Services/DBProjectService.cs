@@ -213,7 +213,7 @@ namespace TWC_Services.DBService.Services
             }
             if(memberToRemove.IsOwner)
             {
-                throw new Exception("You can not remove owner User from Project members");
+                throw new InvalidOperationException("You can not remove owner User from Project members");
             }
 
             _context.ProjectMembers.Remove(memberToRemove);
