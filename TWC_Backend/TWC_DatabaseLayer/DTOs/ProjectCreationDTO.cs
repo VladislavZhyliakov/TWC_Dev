@@ -17,8 +17,6 @@ namespace TWC_DatabaseLayer.DTOs
         public string Description { get; set; }
         [Required]
         public List<string> Tags { get; set; }
-
-
         [Required]
         public int CreatorId { get; set; }
     }

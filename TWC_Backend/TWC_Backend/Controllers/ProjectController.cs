@@ -48,54 +48,78 @@ namespace TWC_Backend.Controllers
         [Route("AddProject")]
         public async Task<ActionResult<Project>> AddProject(ProjectCreationDTO project)
         {
-
-            Project newProject = await _dbProjectService.CreateProjectAsync(project);
-
-            if (newProject == null)
+            try
             {
-                return NotFound("Project or projects fields not found");
-            }
+                Project newProject = await _dbProjectService.CreateProjectAsync(project);
 
-            return Ok(newProject);
+                if (newProject == null)
+                {
+                    return NotFound("Project or projects fields not found");
+                }
+
+                return Ok(newProject);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Can't create the project");
+            }
         }
 
         [HttpPut]
         [Route("EditProject")]
         public async Task<ActionResult<Project>> EditProject(ProjectEditDTO editProject)
         {
-
-            Project edited = await _dbProjectService.EditProjectAsync(editProject);
-
-            if(edited == null) 
+            try
             {
-                return NotFound("Project not found");
-            }
+                Project edited = await _dbProjectService.EditProjectAsync(editProject);
 
-            return Ok(await _dbProjectService.GetAllProjectsAsync());
+                if (edited == null)
+                {
+                    return NotFound("Project not found");
+                }
+
+                return Ok(await _dbProjectService.GetAllProjectsAsync());
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest("Can't edit the project");            
+            }
         }
 
         [HttpDelete]
         [Route("DeleteProject")]
         public async Task<ActionResult<Project>> DeleteProject(int projectId)
         {
+            try
+            {
+                await _dbProjectService.DeleteProjectAsync(projectId);
 
-            await _dbProjectService.DeleteProjectAsync(projectId);
-
-            return Ok(await _dbProjectService.GetAllProjectsAsync());
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Can't delete the project");
+            }
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Project>> GetProjectByIdAsync(int id)
         {
-            Project project = await _dbProjectService.GetProjectByIdAsync(id);
-
-            if(project == null)
+            try
             {
-                return NotFound("Project not found");
-            }
+                Project project = await _dbProjectService.GetProjectByIdAsync(id);
 
-            return Ok(project);
+                if (project == null)
+                {
+                    return NotFound("Project not found");
+                }
+
+                return Ok(project);
+            }catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
         [HttpPut]
         [Route("AddMember")]
