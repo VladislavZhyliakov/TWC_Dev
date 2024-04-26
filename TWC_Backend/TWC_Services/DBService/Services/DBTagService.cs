@@ -20,10 +20,6 @@ namespace TWC_Services.DBService.Services
         }
         public async Task<ProjectTag> AddTagToProjectAsync(Tag tag, Project project)
         {
-<<<<<<< HEAD
-=======
-
->>>>>>> 464a754bea53a2637834bb169285a83fc3a68536
             try
             {
                 ProjectTag projectTag = new ProjectTag()
@@ -40,7 +36,6 @@ namespace TWC_Services.DBService.Services
             }
             catch (Exception ex)
             {
-<<<<<<< HEAD
                 throw new Exception($"Exception: {ex}");
             }
         }
@@ -108,12 +103,7 @@ namespace TWC_Services.DBService.Services
                 throw new Exception($"Exception: {ex}");
             }
         }
-=======
-                throw new NotImplementedException();
-            }
-        }
 
->>>>>>> 464a754bea53a2637834bb169285a83fc3a68536
         public async Task<Tag> CreateTagAsync(string tag)
         {
             try
@@ -128,7 +118,6 @@ namespace TWC_Services.DBService.Services
             }
             catch (Exception ex)
             {
-<<<<<<< HEAD
                 throw new Exception($"Exception: {ex}");
             }
         }
@@ -173,15 +162,6 @@ namespace TWC_Services.DBService.Services
             {
                 throw new Exception($"Exception: {ex}");
             }
-=======
-                throw new Exception($"Exception: {ex} in DBTagService in function CreateTagAsync");
-            }
-        }
-
-        public Task<Tag> DeleteTagAsync(int id)
-        {
-            throw new NotImplementedException();
->>>>>>> 464a754bea53a2637834bb169285a83fc3a68536
         }
 
         public async Task<List<Tag>> GetAllTagsAsync()
@@ -189,7 +169,6 @@ namespace TWC_Services.DBService.Services
             return await _context.Tags.ToListAsync();
         }
 
-<<<<<<< HEAD
         public async Task<Tag> GetTagByIdAsync(int id)
         {
             try
@@ -206,17 +185,11 @@ namespace TWC_Services.DBService.Services
             {
                 throw new Exception($"Exception: {ex}");
             }
-=======
-        public Task<Tag> GetTagByIdAsync(int id)
-        {
-            throw new NotImplementedException();
->>>>>>> 464a754bea53a2637834bb169285a83fc3a68536
         }
 
         public async Task<Tag> GetTagByNameAsync(string name)
         {
             try
-<<<<<<< HEAD
             {
                 var tag = await _context.Tags.SingleOrDefaultAsync(t => t.Name == name);
                 if(tag == null)
@@ -231,21 +204,5 @@ namespace TWC_Services.DBService.Services
             }
         }
 
-        
-=======
-            {            
-                return await _context.Tags.SingleOrDefaultAsync(t => t.Name == name);  
-            }
-            catch(Exception ex) 
-            {
-                throw new Exception($"Can't find tag with name: {name}");
-            }
-        }
-
-        public Task<ProjectTag> RemoveTagFromProjectAsync(Tag tag, Project project)
-        {
-            throw new NotImplementedException();
-        }
->>>>>>> 464a754bea53a2637834bb169285a83fc3a68536
     }
 }

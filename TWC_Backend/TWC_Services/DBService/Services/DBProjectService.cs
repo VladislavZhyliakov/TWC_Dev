@@ -11,10 +11,7 @@ namespace TWC_Services.DBService.Services
     {
         private DataContext _context;
         private ProjectCreationMapper _mapper;
-<<<<<<< HEAD
         private DBTagService _tagService;
-=======
->>>>>>> 464a754bea53a2637834bb169285a83fc3a68536
 
         public DBProjectService(DataContext context) {
             _context = context; 
