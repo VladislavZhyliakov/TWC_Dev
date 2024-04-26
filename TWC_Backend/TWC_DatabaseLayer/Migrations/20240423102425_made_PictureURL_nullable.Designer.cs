@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TWC_DatabaseLayer;
 
@@ -11,9 +12,11 @@ using TWC_DatabaseLayer;
 namespace TWC_DatabaseLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240423102425_made_PictureURL_nullable")]
+    partial class made_PictureURL_nullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +44,7 @@ namespace TWC_DatabaseLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chats", (string)null);
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.Message", b =>
@@ -69,7 +72,7 @@ namespace TWC_DatabaseLayer.Migrations
 
                     b.HasIndex("ChatId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.PasswordSalt", b =>
@@ -92,7 +95,7 @@ namespace TWC_DatabaseLayer.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("PasswordSalts", (string)null);
+                    b.ToTable("PasswordSalts");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.Project", b =>
@@ -120,7 +123,7 @@ namespace TWC_DatabaseLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.ProjectMember", b =>
@@ -146,7 +149,7 @@ namespace TWC_DatabaseLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ProjectMembers", (string)null);
+                    b.ToTable("ProjectMembers");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.ProjectTag", b =>
@@ -169,7 +172,7 @@ namespace TWC_DatabaseLayer.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("ProjectTags", (string)null);
+                    b.ToTable("ProjectTags");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.Tag", b =>
@@ -186,7 +189,7 @@ namespace TWC_DatabaseLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.User", b =>
@@ -232,7 +235,7 @@ namespace TWC_DatabaseLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.UserTag", b =>
@@ -255,7 +258,7 @@ namespace TWC_DatabaseLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTags", (string)null);
+                    b.ToTable("UserTags");
                 });
 
             modelBuilder.Entity("TWC_DatabaseLayer.Models.Message", b =>

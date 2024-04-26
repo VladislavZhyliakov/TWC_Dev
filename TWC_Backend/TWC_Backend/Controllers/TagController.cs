@@ -25,6 +25,7 @@ namespace TWC_Backend.Controllers
 
             return Ok(newTag);
         }
+<<<<<<< HEAD
         [HttpPut]
         [Route("EditTag")]
         public async Task<ActionResult<Tag>> EditTag(Tag newTag)
@@ -34,5 +35,7 @@ namespace TWC_Backend.Controllers
 
             return Ok(editedTag);
         }
+=======
+>>>>>>> 464a754bea53a2637834bb169285a83fc3a68536
     }
 }
