@@ -11,15 +11,19 @@ namespace TWC_Backend.Controllers
     public class TagController : Controller
     {
         private IDBTagService _dbTagService;
-        public TagController(IDBTagService dBTagService)
+        private readonly ILogger<TagController> _tagControllerLogger;
+
+        public TagController(IDBTagService dBTagService, ILogger<TagController> tagControllerLogger)
         {
             _dbTagService = dBTagService;
+            _tagControllerLogger = tagControllerLogger;
         }
 
         [HttpPost]
         [Route("AddTag")]
         public async Task<ActionResult<Tag>> AddTag(string tagName)
         {
+            _tagControllerLogger.LogInformation("\nAddTag()\nTrying to create new project.\n");
 
             Tag newTag = await _dbTagService.CreateTagAsync(tagName);
 

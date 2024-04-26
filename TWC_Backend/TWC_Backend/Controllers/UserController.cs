@@ -15,7 +15,7 @@ namespace TWC_Backend.Controllers
         private IDBPasswordSaltService _dBPasswordSaltService;
         private IMapper<User, UserRegistrationDTO> _registrationMapper;
         private IHashService _hashService;
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<UserController> _userControllerLogger;
 
         public UserController(IDBUserService dBUserService, IDBPasswordSaltService dBPasswordSaltService, IMapper<User, UserRegistrationDTO> mapper, IHashService hashService, ILogger<UserController> logger) 
         {
@@ -23,7 +23,7 @@ namespace TWC_Backend.Controllers
             _dBPasswordSaltService = dBPasswordSaltService;
             _registrationMapper = mapper;
             _hashService = hashService;
-            _logger = logger;
+            _userControllerLogger = logger;
         }
 
         [HttpGet]
@@ -31,12 +31,12 @@ namespace TWC_Backend.Controllers
         {
             try
             {
-                _logger.LogInformation("\nGetAllUsersAsync()\nTrying to return all users.\n");
+                _userControllerLogger.LogInformation("\nGetAllUsersAsync()\nTrying to return all users.\n");
                 return Ok(await _dBUserService.GetAllUsersAsync());
             }
             catch (Exception ex)
             {
-                _logger.LogError($"\nGetAllUsersAsync()\nError during returning all users. Exception message:\n{ex.Message}\n");
+                _userControllerLogger.LogError($"\nGetAllUsersAsync()\nError during returning all users. Exception message:\n{ex.Message}\n");
                 return BadRequest(ex.Message);
             }
         }
@@ -47,12 +47,12 @@ namespace TWC_Backend.Controllers
         {
             try
             {
-                _logger.LogInformation("\nGetUserByIdAsync()\nTrying to return user by id.\n");
+                _userControllerLogger.LogInformation("\nGetUserByIdAsync()\nTrying to return user by id.\n");
                 return Ok(await _dBUserService.GetUserByIdAsync(id));
             }
             catch (Exception ex)
             {
-                _logger.LogError($"\nGetUserByIdAsync()\nError during returning user by id. Exception message:\n{ex.Message}\n");
+                _userControllerLogger.LogError($"\nGetUserByIdAsync()\nError during returning user by id. Exception message:\n{ex.Message}\n");
                 return BadRequest(ex.Message);
             }
         }
@@ -63,11 +63,11 @@ namespace TWC_Backend.Controllers
         {
             try
             {
-                _logger.LogInformation("\nAuthenticationUserAsync()\nTrying to authenticate the user.\n");
+                _userControllerLogger.LogInformation("\nAuthenticationUserAsync()\nTrying to authenticate the user.\n");
 
                 if (!ModelState.IsValid)
                 {
-                    _logger.LogError($"\nAuthenticationUserAsync()\nError during user authentication. Exception message:\nInvalid data. Please check the data. Email must be in the correct format and password must be longer than 8 characters!\n");
+                    _userControllerLogger.LogError($"\nAuthenticationUserAsync()\nError during user authentication. Exception message:\nInvalid data. Please check the data. Email must be in the correct format and password must be longer than 8 characters!\n");
                     throw new Exception("Invalid data. Please check the data. Email must be in the correct format and password must be longer than 8 characters!");
                 }
 
@@ -75,7 +75,7 @@ namespace TWC_Backend.Controllers
 
                 if (user == null)
                 {
-                    _logger.LogError($"\nAuthenticationUserAsync()\nError during user authentication. Exception message:\nUser with this email does not exist!\n");
+                    _userControllerLogger.LogError($"\nAuthenticationUserAsync()\nError during user authentication. Exception message:\nUser with this email does not exist!\n");
                     throw new Exception("User with this email does not exist!");
                 }
 
@@ -83,7 +83,7 @@ namespace TWC_Backend.Controllers
 
                 if (!_hashService.PasswordVerification(userAuthenticationDTO.Password, user.Password, salt.Salt))
                 {
-                    _logger.LogError($"\nAuthenticationUserAsync()\nError during user authentication. Exception message:\nPassword is wrong!\n");
+                    _userControllerLogger.LogError($"\nAuthenticationUserAsync()\nError during user authentication. Exception message:\nPassword is wrong!\n");
                     throw new Exception("Password is wrong!");
                 }
 
@@ -91,7 +91,7 @@ namespace TWC_Backend.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"\nAuthenticationUserAsync()\nError during user authentication. Exception message:\n{ex.Message}\n");
+                _userControllerLogger.LogError($"\nAuthenticationUserAsync()\nError during user authentication. Exception message:\n{ex.Message}\n");
                 return BadRequest(ex.Message);
             }
         }
@@ -102,17 +102,17 @@ namespace TWC_Backend.Controllers
         {
             try
             {
-                _logger.LogInformation("\nRegistrationUserAsync()\nTrying to register the user.\n");
+                _userControllerLogger.LogInformation("\nRegistrationUserAsync()\nTrying to register the user.\n");
 
                 if (!ModelState.IsValid)
                 {
-                    _logger.LogError($"\nRegistrationUserAsync()\nError during user registration. Exception message:\nInvalid data. Please check the data. Username must be longer than 3 characters, email must be in the correct format and password must be longer than 8 characters!\n");
+                    _userControllerLogger.LogError($"\nRegistrationUserAsync()\nError during user registration. Exception message:\nInvalid data. Please check the data. Username must be longer than 3 characters, email must be in the correct format and password must be longer than 8 characters!\n");
                     throw new Exception("Invalid data. Please check the data. Username must be longer than 3 characters, email must be in the correct format and password must be longer than 8 characters!");
                 }
 
                 if (await _dBUserService.GetUserByEmailAsync(userRegistrationDTO.Email) != null)
                 { 
-                    _logger.LogError($"\nRegistrationUserAsync()\nError during user registration. Exception message:\nUser with this email already exists!\n");
+                    _userControllerLogger.LogError($"\nRegistrationUserAsync()\nError during user registration. Exception message:\nUser with this email already exists!\n");
                     throw new Exception("User with this email already exists!");
                 }
 
@@ -132,7 +132,7 @@ namespace TWC_Backend.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"\nRegistrationUserAsync()\nError during user registration. Exception message:\n{ex.Message}\n");
+                _userControllerLogger.LogError($"\nRegistrationUserAsync()\nError during user registration. Exception message:\n{ex.Message}\n");
                 return BadRequest(ex.Message);
             }
         }
@@ -142,7 +142,7 @@ namespace TWC_Backend.Controllers
         {
             try
             {
-                _logger.LogInformation("\nDeleteUserByIdAsync()\nTrying to delete the user by id.\n");
+                _userControllerLogger.LogInformation("\nDeleteUserByIdAsync()\nTrying to delete the user by id.\n");
 
                 await _dBUserService.DeleteUserAsync(id);
 
@@ -150,7 +150,7 @@ namespace TWC_Backend.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"\nDeleteUserByIdAsync()\nError during user deletion. Exception message:\n{ex.Message}\n");
+                _userControllerLogger.LogError($"\nDeleteUserByIdAsync()\nError during user deletion. Exception message:\n{ex.Message}\n");
                 return BadRequest(ex.Message);
             }
         }
