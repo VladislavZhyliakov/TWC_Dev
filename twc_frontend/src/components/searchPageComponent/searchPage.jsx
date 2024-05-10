@@ -11,7 +11,7 @@ const SEARCH_TYPE_ENUM = {
 
 const SearchPage = function () {
     {/*the searchType parameter we will get from parent component or localStorage*/}
-    const [searchType, SetSearchType] = useState(SEARCH_TYPE_ENUM.PROJECT);
+    const [searchType, SetSearchType] = useState(SEARCH_TYPE_ENUM.PEOPLE);
 
     return (
         <div>

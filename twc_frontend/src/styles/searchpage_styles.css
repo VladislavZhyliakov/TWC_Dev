@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+body {
+    scrollbar-width: none; /* Для Firefox */
+}
+
+/* Приховати нижній скрол-бар */
+::-webkit-scrollbar {
+    display: none; /* Для WebKit (Chrome, Safari, Opera) */
+}
+
 .searchPageRoot {
     width: 100%;
     height: 93vh;
@@ -13,21 +22,21 @@
     align-items: center;
     justify-content: center;
 
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 .searchPage {
     width: 60%;
     height: 80vh;
 
-    background-color: aqua;
+    background-color: inherit
 }
 
 .searchPageLeftField {
     width: 20%;
     height: 100%;
 
-    background-color: aquamarine;
+    background-color: inherit;
 
     float: left;
 }
@@ -37,7 +46,7 @@
     width: 60%;
     height: 94%;
 
-    background-color: blue;
+    background-color: inherit;
 
     display: flex;
     flex-direction: column;
@@ -51,7 +60,7 @@
     width: 20%;
     height: 100%;
 
-    background-color: aquamarine;
+    background-color: inherit;
 
     float: left;
 }
@@ -61,7 +70,7 @@
     width: 100%;
 
     border-color: black;
-    border-style: solid;
+    border-style: none;
     z-index: 1;
 
     position: relative;

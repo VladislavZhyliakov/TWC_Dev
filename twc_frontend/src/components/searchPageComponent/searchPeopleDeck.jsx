@@ -14,26 +14,34 @@ const cards = [
     'https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg',
 ];
 
-const to = (i) => ({
-    x: i * 4,
-    y: i * 4,
-    scale: 1,
-    rot: -10 + Math.random() * 20,
-    delay: i * 100,
-});
+
+const MAX_CARDS_IN_DECK = 6;
 const from = (_i) => ({ x: 0, rot: 0, scale: 1.5, y: -1000 });
+const from_before = (_i, direction) => ({ x: direction < 0 ? -5000 : 5000, rot: 0, scale: 1.5, y: -5000 });
 const trans = (r, s) =>
     `perspective(1500px) rotateX(0deg) rotateY(${r / 100}deg) rotateZ(${r / 20}deg) scale(${s})`;
 
 function Deck() {
     const [gone] = useState(() => new Set());
-    const [props, api] = useSprings(cards.length, (i) => ({
+
+    const to = function (i) {
+
+        return ({
+            x: i * 4,
+            y: i * 4,
+            scale: 1,
+            rot: -10 + Math.random() * 20,
+            delay: i * 100,
+        })
+    }
+
+    const [props, api] = useSprings(Math.min(cards.length, MAX_CARDS_IN_DECK), (i) => ({
         ...to(i),
         from: from(i),
     }));
 
     const bind = useDrag(({ args: [index], down, movement: [mx], direction: [xDir], velocity }) => {
-        const trigger = velocity > 2.0;
+        const trigger = velocity > 0.5;
         const dir = xDir < 0 ? -1 : 1;
         if (!down && trigger) gone.add(index);
         api.start((i) => {
@@ -50,10 +58,19 @@ function Deck() {
                 config: { friction: 50, tension: down ? 800 : isGone ? 200 : 500 },
             };
         });
-        if (!down && gone.size === cards.length)
+
+        if (!down && gone.size === MAX_CARDS_IN_DECK)
             setTimeout(() => {
                 gone.clear();
-                api.start((i) => to(i));
+                api.start((i) => from_before(i, dir));
+
+                setTimeout(() => {
+                    api.start((i) => from(i));
+
+                    setTimeout(() => {
+                        api.start((i) => to(i));
+                    }, 400)
+                }, 10)
             }, 600);
     });
 
