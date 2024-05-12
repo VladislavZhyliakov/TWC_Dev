@@ -4,6 +4,14 @@ using TWC_Services.Mapper;
 using TWC_DatabaseLayer.Models;
 using TWC_Services.HashService;
 using TWC_Services.DBService.Interfaces;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System;
+using Microsoft.AspNetCore.Authorization;
+using TWC_Services.TokenService;
 
 namespace TWC_Backend.Controllers
 {
@@ -15,15 +23,23 @@ namespace TWC_Backend.Controllers
         private IDBPasswordSaltService _dBPasswordSaltService;
         private IMapper<User, UserRegistrationDTO> _registrationMapper;
         private IHashService _hashService;
+        private ITokenService _tokenService;
         private readonly ILogger<UserController> _userControllerLogger;
 
-        public UserController(IDBUserService dBUserService, IDBPasswordSaltService dBPasswordSaltService, IMapper<User, UserRegistrationDTO> mapper, IHashService hashService, ILogger<UserController> logger) 
+        public UserController(
+            IDBUserService dBUserService, 
+            IDBPasswordSaltService dBPasswordSaltService, 
+            IMapper<User, UserRegistrationDTO> mapper, 
+            IHashService hashService, 
+            ILogger<UserController> logger,
+            ITokenService tokenService) 
         {
             _dBUserService = dBUserService;
             _dBPasswordSaltService = dBPasswordSaltService;
             _registrationMapper = mapper;
             _hashService = hashService;
             _userControllerLogger = logger;
+            _tokenService = tokenService;
         }
 
         [HttpGet]
@@ -59,7 +75,7 @@ namespace TWC_Backend.Controllers
 
         [HttpPost]
         [Route("/User/Authentication")]
-        public async Task<ActionResult<User>> AuthenticationUserAsync(UserAuthenticationDTO userAuthenticationDTO)
+        public async Task<ActionResult<string>> AuthenticationUserAsync(UserAuthenticationDTO userAuthenticationDTO)
         {
             try
             {
@@ -87,7 +103,7 @@ namespace TWC_Backend.Controllers
                     throw new Exception("Password is wrong!");
                 }
 
-                return Ok(user);
+                return Ok(_tokenService.CreateToken(user.Id, user.Email, "user"));
             }
             catch (Exception ex)
             {
@@ -98,7 +114,7 @@ namespace TWC_Backend.Controllers
 
         [HttpPost]
         [Route("/User/Registration")]
-        public async Task<ActionResult<User>> RegistrationUserAsync(UserRegistrationDTO userRegistrationDTO)
+        public async Task<ActionResult<string>> RegistrationUserAsync(UserRegistrationDTO userRegistrationDTO)
         {
             try
             {
@@ -128,7 +144,9 @@ namespace TWC_Backend.Controllers
 
                 await _dBPasswordSaltService.AddSaltAsync(passwordSalt);
 
-                return Ok(user);
+               
+
+                return Ok(_tokenService.CreateToken(user.Id, user.Email, "user"));
             }
             catch (Exception ex)
             {
@@ -156,3 +174,4 @@ namespace TWC_Backend.Controllers
         }
     }
 }
+
