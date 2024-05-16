@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TWC_DatabaseLayer.DTOs;
 using TWC_DatabaseLayer.Models;
 using TWC_Services.DBService.Interfaces;
@@ -8,6 +9,7 @@ namespace TWC_Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class TagController : Controller
     {
         private IDBTagService _dbTagService;

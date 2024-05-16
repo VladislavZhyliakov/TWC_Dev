@@ -3,11 +3,13 @@ using TWC_DatabaseLayer.DTOs;
 using TWC_Services.Mapper;
 using TWC_DatabaseLayer.Models;
 using TWC_Services.DBService.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TWC_Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ProjectController : Controller
     {
         private IDBProjectService _dbProjectService;
